@@ -92,7 +92,7 @@ export function drawScreen(ctx: CanvasRenderingContext2D, game: QueueGame, now: 
     centered(ctx, "FINDING MATCH", 205, `bold 40px ${FONT}`, "#d5d8dc");
     centered(ctx, formatDuration(t), 268, `bold 84px ${FONT}`, "#ffffff");
     centered(ctx, "Estimated wait: 2:31", 418, `28px ${FONT}`, "#8b929b");
-    centered(ctx, "Ranked All Pick  ·  US East", 456, `24px ${FONT}`, "#5f666f");
+    centered(ctx, "Ability Draft  ·  US East", 456, `24px ${FONT}`, "#5f666f");
 
     const tip = TIPS[Math.floor((now - game.startedAt) / 12) % TIPS.length];
     centered(ctx, tip, 520, `italic 26px ${FONT}`, "#6f7781");
