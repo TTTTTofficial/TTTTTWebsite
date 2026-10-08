@@ -1,9 +1,8 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-// `base` must match the repo name for GitHub Pages project sites.
-// Change to "/" if you use a custom domain.
+// Served from the root of the custom domain https://ttttt.win/.
 export default defineConfig({
   plugins: [react()],
-  base: "/TTTTTWebsite/",
+  base: "/",
 });

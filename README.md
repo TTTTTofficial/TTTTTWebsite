@@ -22,7 +22,7 @@ src/data.ts                Clan info, roster, games, Discord link — edit this 
 src/App.tsx                Page layout
 src/components/            One component per section
 src/index.css              Styles (colors are CSS variables at the top)
-vite.config.ts             Vite config (`base` must match the repo name)
+vite.config.ts             Vite config
 .github/workflows/         Build & deploy to GitHub Pages
 ```
 
@@ -36,6 +36,6 @@ vite.config.ts             Vite config (`base` must match the repo name)
 
 1. On GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 2. Push to `main`. The workflow builds and publishes the site to
-   `https://tttttofficial.github.io/TTTTTWebsite/`.
+   https://ttttt.win/ (custom domain set under **Settings → Pages**).
 
-If you add a custom domain, change `base` in `vite.config.ts` to `"/"`.
+The site is built for the root of the domain (`base: "/"` in `vite.config.ts`).
