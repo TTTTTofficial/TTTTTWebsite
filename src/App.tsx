@@ -1,5 +1,6 @@
 import Header from "./components/Header.tsx";
 import Hero from "./components/Hero.tsx";
+import LifeSimulator from "./components/LifeSimulator.tsx";
 import About from "./components/About.tsx";
 import Roster from "./components/Roster.tsx";
 import Games from "./components/Games.tsx";
@@ -12,6 +13,7 @@ export default function App() {
       <Header />
       <main id="top">
         <Hero />
+        <LifeSimulator />
         <About />
         <Roster />
         <Games />

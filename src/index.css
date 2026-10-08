@@ -170,6 +170,48 @@ a { color: var(--accent); }
   font-weight: 700;
 }
 
+/* Life Simulator */
+.sim-stage {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin-top: 2rem;
+  background: #020202;
+  border: 1px solid #262a36;
+  border-radius: var(--radius);
+  overflow: hidden;
+  outline: none;
+}
+
+.sim-stage:fullscreen { border: none; border-radius: 0; }
+
+.sim-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  background: radial-gradient(circle at 50% 40%, rgba(255, 176, 102, 0.12), transparent 60%), #050505;
+}
+
+.sim-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.sim-buttons { display: flex; gap: 0.5rem; }
+
+button.btn { border: none; font: inherit; font-weight: 600; cursor: pointer; }
+button.btn:disabled { opacity: 0.6; cursor: wait; }
+
+.btn-ghost { background: transparent; border: 1px solid #3a3f4d; color: var(--text); }
+.btn-ghost:hover { background: var(--card); }
+
 /* Footer */
 .site-footer {
   padding: 2rem 0;

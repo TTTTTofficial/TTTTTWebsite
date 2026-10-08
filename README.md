@@ -21,6 +21,7 @@ public/                    Static files copied as-is (favicon, images)
 src/data.ts                Clan info, roster, games, Discord link — edit this to update content
 src/App.tsx                Page layout
 src/components/            One component per section
+src/game/                  TTTTT Life Simulator (three.js / WebXR)
 src/index.css              Styles (colors are CSS variables at the top)
 vite.config.ts             Vite config
 .github/workflows/         Build & deploy to GitHub Pages
@@ -31,6 +32,10 @@ vite.config.ts             Vite config
 - **Text, members, games, Discord link:** edit `src/data.ts`.
 - **Avatars:** put images in `public/avatars/` and set `avatar: "avatars/name.png"` on the member.
 - **Colors:** change the variables in `:root` at the top of `src/index.css`.
+
+## TTTTT Life Simulator
+
+A WebXR game on the main page: you sit in a basement waiting for a Dota 2 match that never starts. Matches pop after 3–7 minutes, and someone always fails to accept. Add `?impatient` to the URL to make matches pop in seconds (handy for testing). VR needs a WebXR headset browser (e.g. Quest Browser) over HTTPS.
 
 ## Deploying
 

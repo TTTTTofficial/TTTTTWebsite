@@ -5,4 +5,6 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   base: "/",
+  // three.js (~550 kB) is in its own chunk that only loads when the Life Simulator starts.
+  build: { chunkSizeWarningLimit: 600 },
 });

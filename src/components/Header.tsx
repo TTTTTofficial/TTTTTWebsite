@@ -2,6 +2,7 @@ import { useState } from "react";
 import { clan } from "../data.ts";
 
 const links = [
+  { href: "#life-sim", label: "Life Sim" },
   { href: "#about", label: "About" },
   { href: "#roster", label: "Roster" },
   { href: "#games", label: "Games" },
