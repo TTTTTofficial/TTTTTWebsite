@@ -118,6 +118,13 @@ export class BasementAudio {
     [392, 311.13, 233.08].forEach((f, i) => this.tone(f, t + i * 0.38, 0.6, "sawtooth", 0.08));
   }
 
+  /** Steam's chat notification blip. */
+  message() {
+    const t = this.ctx.currentTime;
+    this.tone(880, t, 0.12, "sine", 0.12);
+    this.tone(1318.5, t + 0.09, 0.2, "sine", 0.12);
+  }
+
   click() {
     this.tone(1800, this.ctx.currentTime, 0.05, "square", 0.05);
   }

@@ -130,6 +130,7 @@ export function startLifeSimulator(container: HTMLElement, timing: QueueTiming):
     const event = game.update(now);
     if (event === "pop") audio.ready();
     if (event === "fail") audio.fail();
+    if (event === "message") audio.message();
     if (event) lastScreenDraw = 0;
 
     const glow = GLOW[game.phase];

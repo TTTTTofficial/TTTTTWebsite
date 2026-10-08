@@ -1,18 +1,21 @@
 // The matchmaking "game": queue → match found → someone doesn't accept → queue.
 
 export type Phase = "queue" | "ready" | "failed";
-export type GameEvent = "pop" | "fail" | "requeue";
+export type GameEvent = "pop" | "fail" | "requeue" | "message";
 
 export interface QueueTiming {
   /** Shortest wait before a match pops, in seconds. */
   minQueue: number;
   /** Longest wait before a match pops, in seconds. */
   maxQueue: number;
+  /** Range of seconds between Steam messages from The Jammer. */
+  messageEvery: [number, number];
 }
 
 export const READY_SECONDS = 20;
 const FAILED_SECONDS = 7;
 const OTHER_PLAYERS = 9;
+export const MESSAGE_SECONDS = 6;
 
 const QUIPS = [
   "It was probably the Techies main.",
@@ -54,7 +57,10 @@ export class QueueGame {
   /** Seconds into the ready check at which each other player accepts. Infinity = never. */
   otherAccepts: number[] = [];
   quip = "";
+  /** When the current Steam message popup appeared; -Infinity if none has. */
+  messageAt = -Infinity;
   private popAfter: number;
+  private nextMessage: number;
 
   constructor(
     private timing: QueueTiming,
@@ -63,6 +69,7 @@ export class QueueGame {
     this.startedAt = now;
     this.phaseStart = now;
     this.popAfter = rand(timing.minQueue, timing.maxQueue);
+    this.nextMessage = now + rand(...timing.messageEvery);
   }
 
   elapsed(now: number): number {
@@ -95,6 +102,14 @@ export class QueueGame {
       this.phaseStart = now;
       this.popAfter = rand(this.timing.minQueue, this.timing.maxQueue);
       return "requeue";
+    }
+    // The Jammer only messages you while you're stuck in queue.
+    if (now >= this.nextMessage) {
+      this.nextMessage = now + rand(...this.timing.messageEvery);
+      if (this.phase === "queue") {
+        this.messageAt = now;
+        return "message";
+      }
     }
     return null;
   }

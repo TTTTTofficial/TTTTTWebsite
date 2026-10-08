@@ -1,5 +1,5 @@
 // Draws the in-game monitor (the matchmaking client) onto a canvas.
-import { QueueGame, READY_SECONDS, TIPS, formatDuration } from "./queue.ts";
+import { MESSAGE_SECONDS, QueueGame, READY_SECONDS, TIPS, formatDuration } from "./queue.ts";
 
 export const SCREEN_W = 1024;
 export const SCREEN_H = 640;
@@ -42,6 +42,51 @@ function drawPips(ctx: CanvasRenderingContext2D, game: QueueGame, t: number, y: 
     }
     if (i === 0) centered(ctx, "YOU", y + 46, `bold 22px ${FONT}`, "#9aa0a8", x);
   });
+}
+
+/** A Steam-style chat notification that slides in from the bottom right. */
+function drawSteamMessage(ctx: CanvasRenderingContext2D, age: number) {
+  if (age < 0 || age > MESSAGE_SECONDS) return;
+  const slide = Math.min(1, age / 0.3, (MESSAGE_SECONDS - age) / 0.4);
+  const w = 440;
+  const h = 104;
+  const x = SCREEN_W - (w + 20) * slide;
+  const y = SCREEN_H - 64 - h - 16;
+
+  ctx.save();
+  ctx.globalAlpha = Math.max(0, slide);
+  const bg = ctx.createLinearGradient(x, y, x, y + h);
+  bg.addColorStop(0, "#2a475e");
+  bg.addColorStop(1, "#1b2838");
+  ctx.fillStyle = bg;
+  ctx.fillRect(x, y, w, h);
+  ctx.strokeStyle = "#0e1620";
+  ctx.lineWidth = 2;
+  ctx.strokeRect(x, y, w, h);
+
+  // Avatar with the green "in-game" border.
+  ctx.fillStyle = "#90ba3c";
+  ctx.fillRect(x + 14, y + 16, 72, 72);
+  ctx.fillStyle = "#5a1430";
+  ctx.fillRect(x + 17, y + 19, 66, 66);
+  ctx.font = `bold 46px ${FONT}`;
+  ctx.fillStyle = "#e3577f";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText("J", x + 50, y + 54);
+
+  ctx.textAlign = "left";
+  ctx.font = `bold 28px ${FONT}`;
+  ctx.fillStyle = "#a4d007";
+  ctx.fillText("The Jammer", x + 102, y + 30);
+  const nameWidth = ctx.measureText("The Jammer").width;
+  ctx.font = `20px ${FONT}`;
+  ctx.fillStyle = "#8f98a0";
+  ctx.fillText("says:", x + 102 + nameWidth + 10, y + 32);
+  ctx.font = `24px ${FONT}`;
+  ctx.fillStyle = "#c6d4df";
+  ctx.fillText("Tryhard G2OP Stack just queued", x + 102, y + 68);
+  ctx.restore();
 }
 
 export function drawScreen(ctx: CanvasRenderingContext2D, game: QueueGame, now: number) {
@@ -106,6 +151,8 @@ export function drawScreen(ctx: CanvasRenderingContext2D, game: QueueGame, now: 
       `24px ${FONT}`,
       "#9aa0a8",
     );
+
+    drawSteamMessage(ctx, now - game.messageAt);
   } else if (game.phase === "ready") {
     centered(ctx, "YOUR GAME IS READY", 125, `bold 64px ${FONT}`, "#ffffff");
 

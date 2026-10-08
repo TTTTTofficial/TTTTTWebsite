@@ -5,7 +5,9 @@ type Status = "idle" | "loading" | "running" | "error";
 
 // Add ?impatient to the URL to make matches pop in seconds instead of minutes.
 const impatient = new URLSearchParams(window.location.search).has("impatient");
-const TIMING = impatient ? { minQueue: 8, maxQueue: 15 } : { minQueue: 180, maxQueue: 420 };
+const TIMING = impatient
+  ? { minQueue: 8, maxQueue: 15, messageEvery: [3, 6] as [number, number] }
+  : { minQueue: 180, maxQueue: 420, messageEvery: [45, 120] as [number, number] };
 
 export default function LifeSimulator() {
   const stageRef = useRef<HTMLDivElement>(null);
